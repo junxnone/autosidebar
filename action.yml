@@ -1,0 +1,40 @@
+name: update sidebar
+description: "update the sidebar in docsify"
+inputs:
+  GITHUB_TOKEN:
+    description: "secrets.GITHUB_TOKEN"
+    required: true
+  actor:
+    description: "github.actor"
+    required: true
+  docs_path:
+    description: "markdown documents path"
+    required: true
+    default: "docs"
+  push_branch:
+    description: "Target branch name to push the index"
+    required: true
+    default: "gh-page"
+runs:
+  using: "composite"
+  steps:
+  - name: Set up Python
+    uses: actions/setup-python@v2
+    with:
+      python-version: '3.x'
+  - name: update sidebar
+    shell: bash
+    run: |
+      wget https://raw.githubusercontent.com/junxnone/autosidebar/main/update_sidebar.py
+      python update_sidebar.py --path "${{ github.docs_path }}"
+  - name: push to gh-page
+    shell: bash
+    run: |
+      REMOTE=https://${{ inputs.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+      git config user.email "${{ inputs.actor }}@users.noreply.github.com"
+      git config user.name "${{ inputs.actor }}"
+      git pull ${REMOTE}
+      git add _sidebar.md
+      git status
+      git commit -am "Update _sidebar"
+      git push ${REMOTE}  ${{ inputs.branch }}
