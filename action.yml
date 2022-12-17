@@ -24,6 +24,7 @@ runs:
     with:
       python-version: '3.x'
       cache: 'pip'
+  - name: Set up Python package
     run: pip install -r requirements.txt
   - name: update sidebar
     shell: bash
