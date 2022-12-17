@@ -22,6 +22,10 @@ runs:
     uses: actions/setup-python@v2
     with:
       python-version: '3.x'
+      cache: 'pip'
+    run: |
+      wget https://raw.githubusercontent.com/junxnone/autosidebar/main/update_sidebar.py
+      pip install -r requirements.txt
   - name: update sidebar
     shell: bash
     run: |
