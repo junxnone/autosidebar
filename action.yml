@@ -26,7 +26,7 @@ runs:
   - name: Set up Python package
     shell: bash
     run: |
-      wget https://raw.githubusercontent.com/junxnone/autosidebar/main/update_sidebar.py
+      wget https://raw.githubusercontent.com/junxnone/autosidebar/main/requirements.txt
       pip install -r requirements.txt
   - name: update sidebar
     shell: bash
