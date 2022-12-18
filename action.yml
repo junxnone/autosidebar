@@ -31,7 +31,7 @@ runs:
     shell: bash
     run: |
       wget https://raw.githubusercontent.com/junxnone/autosidebar/main/update_sidebar.py
-      python update_sidebar.py --path "${{ github.docs_path }}" | tee "${{ inputs.docs_path }}"/_sidebar.md
+      python update_sidebar.py --path "${{ inputs.docs_path }}" | tee "${{ inputs.docs_path }}"/_sidebar.md
   - name: push to gh-page
     shell: bash
     run: |
