@@ -15,7 +15,7 @@ file_list = glob.glob(doc_ptn)
 #file_list.remove("docs/NAV.md")
 #file_list.remove("docs/README.md")
 
-#print(file_list)
+print(file_list)
 
 fd = {"filepath": pd.Series(file_list)}
 fdf = pd.DataFrame(fd)
