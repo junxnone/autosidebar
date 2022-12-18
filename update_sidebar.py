@@ -9,8 +9,22 @@ args = ap.parse_args()
 
 doc_ptn = os.path.join(args.path, '*.md')
 file_list = glob.glob(doc_ptn)
-ignore_files = ['_sidebar.md', 'NAV.md', 'README.md']
 
+def txt2list(file_path):
+    wlist = []
+    with open(file_path, 'r') as fn:
+        flines = fn.readlines()
+        for line in flines:
+            temp = line.strip('\n')
+            wlist.append(temp)
+    return wlist
+
+sort_fpath = os.path.join(args.path, 'sidebar.md')
+sort_list = []
+if sort_fpath in file_list:
+    sort_list = txt2list(sort_fpath)
+
+ignore_files = ['_sidebar.md', 'NAV.md', 'README.md', 'sidebar.md']
 for igf in ignore_files:
     igf_path = os.path.join(args.path, igf)
     if igf_path in file_list:
@@ -38,7 +52,13 @@ def search_sort_cls(df, level):
 fdf['link'] = '[' + fdf.name0.str.replace('_', ' ') + '](/' + fdf.name0 + ')'
 def loop_cls(ldf, nloop, maxloop):
     list_0 = search_sort_cls(ldf, nloop)
-    for cls0n in list_0:
+    list_0s = []
+    for ix in sort_list:
+        if ix in list_0:
+            list_0s.append(ix)
+            list_0.remove(ix)
+    list_x = list_0s + list_0
+    for cls0n in list_x:
         #print(cls0n)
         cls0_df = ldf[ldf[nloop] == cls0n]
         #print(ldf)
