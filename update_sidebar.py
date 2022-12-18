@@ -54,6 +54,7 @@ def loop_cls(ldf, nloop, maxloop):
     list_0 = search_sort_cls(ldf, nloop)
     list_0s = []
     for ix in sort_list:
+        ix = ix.replace(' ', '')
         if ix in list_0:
             list_0s.append(ix)
             list_0.remove(ix)
