@@ -12,7 +12,7 @@ file_list = glob.glob(doc_ptn)
 ignore_files = ['_sidebar.md', 'NAV.md', 'README.md']
 
 for igf in ignore_files:
-    igf_path = os.path.join(args.path + igf)
+    igf_path = os.path.join(args.path, igf)
     if igf_path in file_list:
         file_list.remove(igf_path)
 
