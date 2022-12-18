@@ -49,7 +49,18 @@ def search_sort_cls(df, level):
         cls_list.remove("")
     return cls_list
 
-fdf['link'] = '[' + fdf.name0.str.replace('_', ' ') + '](/' + fdf.name0 + ')'
+
+def build_subname(a,b):
+    if b is None:
+        return a
+    else:
+        return b
+
+sname = fdf.name0.str.rsplit('_', expand=True, n=1)
+sname['lastname'] = sname.apply(lambda x: build_subname(x[0], x[1]), axis = 1)
+fdf['lastname'] = sname['lastname']
+
+fdf['link'] = '[' + fdf.lastname + '](/' + fdf.name0 + ')'
 def loop_cls(ldf, nloop, maxloop):
     list_0 = search_sort_cls(ldf, nloop)
     list_0s = []
