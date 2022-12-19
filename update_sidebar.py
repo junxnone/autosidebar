@@ -40,6 +40,8 @@ fdf = fdf.join(namex)
 cls_df = fdf.filename.str.replace('.', '_', regex=False).str.split("_", expand=True, regex=False)
 fdf = fdf.join(cls_df)
 fdf.fillna(value="None", inplace=True)
+loop_max = fdf.columns.tolist()[-1]
+fdf[fdf.columns.tolist()[-1] + 1] = "None"
 
 def search_sort_cls(df, level):
     cls_list = df[level].value_counts().index.tolist()
@@ -71,11 +73,13 @@ def loop_cls(ldf, nloop, maxloop):
             list_0.remove(ix)
     list_x = list_0s + list_0
     for cls0n in list_x:
-        #print(cls0n)
         cls0_df = ldf[ldf[nloop] == cls0n]
-        #print(ldf)
-        for ll in cls0_df[cls0_df[nloop+1] == 'md'].link:
-            print((' ' * nloop * 2) + (f'- {ll}'))
+
+        if (len(cls0_df[cls0_df[nloop+1] == 'md'])):
+            for ll in cls0_df[cls0_df[nloop+1] == 'md'].link:
+                print((' ' * nloop * 2) + (f'- {ll}'))
+        elif (cls0n != 'md'):
+            print((' ' * nloop * 2) + f'- {cls0n}')
         if nloop < maxloop:
             loop_cls(cls0_df, nloop+1, maxloop)
 
