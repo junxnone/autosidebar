@@ -2,6 +2,7 @@ import os
 import glob
 import pandas as pd
 import argparse
+import fileinput
 
 ap = argparse.ArgumentParser()
 ap.add_argument('--path', default='none')
@@ -62,7 +63,20 @@ sname = fdf.name0.str.rsplit('_', expand=True, n=1)
 sname['lastname'] = sname.apply(lambda x: build_subname(x[0], x[1]), axis = 1)
 fdf['lastname'] = sname['lastname']
 
-fdf['link'] = '[' + fdf.lastname + '](/' + fdf.name0 + ')'
+def get_title(filepath, lastname):
+    title = 'notitle'
+    for line in fileinput.input(files=filepath):
+        if line.startswith('# '):
+            title = line.replace('# ', '').strip('\n').strip(' ')
+            break
+    fileinput.close()
+    if (title == 'notitle'):
+        return lastname
+    return title
+
+fdf['title'] = fdf.apply(lambda x: get_title(x['filepath'], x['lastname']), axis = 1)
+
+fdf['link'] = '[' + fdf.title + '](/' + fdf.name0 + ')'
 def loop_cls(ldf, nloop, maxloop):
     list_0 = search_sort_cls(ldf, nloop)
     list_0s = []
