@@ -18,6 +18,7 @@ inputs:
 runs:
   using: 'docker'
   image: 'docker://junxnone/autosidebar'
+  steps:
   - name: update sidebar
     shell: bash
     run: |
