@@ -16,9 +16,18 @@ inputs:
     required: true
     default: "gh-page"
 runs:
+  using: "composite"
   steps:
+  - name: Set up Python
+    uses: actions/setup-python@v4
+    with:
+      python-version: '3.x'
+  - name: Set up Python package
+    shell: bash
+    run: |
+      wget https://raw.githubusercontent.com/junxnone/autosidebar/main/requirements.txt
+      pip install -r requirements.txt
   - name: update sidebar
-    uses: 'docker://junxnone/autosidebar'
     shell: bash
     run: |
       wget https://raw.githubusercontent.com/junxnone/autosidebar/main/update_sidebar.py
