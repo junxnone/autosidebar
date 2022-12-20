@@ -16,10 +16,9 @@ inputs:
     required: true
     default: "gh-page"
 runs:
-  using: 'docker'
-  image: 'docker://junxnone/autosidebar'
   steps:
   - name: update sidebar
+    uses: 'docker://junxnone/autosidebar'
     shell: bash
     run: |
       wget https://raw.githubusercontent.com/junxnone/autosidebar/main/update_sidebar.py
