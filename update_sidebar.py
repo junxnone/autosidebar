@@ -25,7 +25,7 @@ sort_list = []
 if sort_fpath in file_list:
     sort_list = txt2list(sort_fpath)
 
-ignore_files = ['_sidebar.md', 'NAV.md', 'README.md', 'sidebar.md']
+ignore_files = ['_sidebar.md', 'NAV.md', 'README.md', 'sidebar.md', 'hist.md']
 for igf in ignore_files:
     igf_path = os.path.join(args.path, igf)
     if igf_path in file_list:
