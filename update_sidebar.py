@@ -105,7 +105,7 @@ def write_list2txt(wlist, file_path):
             fn.write(str(line) + '\n')
 write_list2txt(hist_list, 'docs/hist.md')
 
-def loop_cls(ldf, nloop, maxloop):
+def loop_cls(ldf, sloop, nloop, maxloop):
     list_0 = search_sort_cls(ldf, nloop)
     list_0s = []
     for ix in sort_list:
@@ -119,10 +119,11 @@ def loop_cls(ldf, nloop, maxloop):
 
         if (len(cls0_df[cls0_df[nloop+1] == 'md'])):
             for ll in cls0_df[cls0_df[nloop+1] == 'md'].link:
-                print((' ' * nloop * 2) + (f'- {ll}'))
+                print((' ' * (nloop - sloop) * 2) + (f'- {ll}'))
         elif (cls0n != 'md'):
             print((' ' * nloop * 2) + f'- {cls0n}')
         if nloop < maxloop:
-            loop_cls(cls0_df, nloop+1, maxloop)
+            loop_cls(cls0_df, sloop, nloop+1, maxloop)
 
-loop_cls(fdf, 1, 5)
+loop_cls(fdf, 1, 1, 2)
+print('- [Wiki History](/hist)')
