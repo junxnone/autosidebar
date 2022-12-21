@@ -76,7 +76,35 @@ def get_title(filepath, lastname):
 
 fdf['title'] = fdf.apply(lambda x: get_title(x['filepath'], x['lastname']), axis = 1)
 
+def get_create_date(filepath):
+    date = 'nodate'
+    for line in fileinput.input(files=filepath):
+        if line.startswith('Created @'):
+            date = line.replace('Created @ | `', '').replace('Z`', '').strip('\n').strip(' ')
+            break
+    fileinput.close()
+
+    return date
+
+fdf['create_date'] = fdf.apply(lambda x: get_create_date(x['filepath']), axis = 1)
 fdf['link'] = '[' + fdf.title + '](/' + fdf.name0 + ')'
+
+date_linkl = fdf.sort_values('create_date', ascending=False).link.tolist()
+date_datel = fdf.sort_values('create_date', ascending=False).create_date.tolist()
+
+hist_list = ['# Wiki History\n']
+
+for ilink, idate in zip(date_linkl, date_datel):
+    if idate != 'nodate':
+        ds = idate.split('T')[0]
+        hist_list.append(f'- {ds}   {ilink}')
+
+def write_list2txt(wlist, file_path):
+    with open(file_path, 'w') as fn:
+        for line in wlist:
+            fn.write(str(line) + '\n')
+write_list2txt(hist_list, 'docs/hist.md')
+
 def loop_cls(ldf, nloop, maxloop):
     list_0 = search_sort_cls(ldf, nloop)
     list_0s = []
@@ -97,4 +125,4 @@ def loop_cls(ldf, nloop, maxloop):
         if nloop < maxloop:
             loop_cls(cls0_df, nloop+1, maxloop)
 
-loop_cls(fdf, 0, 2)
+loop_cls(fdf, 1, 5)
