@@ -125,5 +125,5 @@ def loop_cls(ldf, sloop, nloop, maxloop):
         if nloop < maxloop:
             loop_cls(cls0_df, sloop, nloop+1, maxloop)
 
-loop_cls(fdf, 1, 1, 2)
+loop_cls(fdf, 1, 1, 5)
 print('- [Wiki History](/hist)')
