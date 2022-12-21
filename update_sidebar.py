@@ -121,7 +121,7 @@ def loop_cls(ldf, sloop, nloop, maxloop):
             for ll in cls0_df[cls0_df[nloop+1] == 'md'].link:
                 print((' ' * (nloop - sloop) * 2) + (f'- {ll}'))
         elif (cls0n != 'md'):
-            print((' ' * nloop * 2) + f'- {cls0n}')
+            print((' ' * (nloop - sloop) * 2) + f'- {cls0n}')
         if nloop < maxloop:
             loop_cls(cls0_df, sloop, nloop+1, maxloop)
 
