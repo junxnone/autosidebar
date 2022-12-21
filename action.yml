@@ -39,7 +39,7 @@ runs:
       git config user.email "${{ inputs.actor }}@users.noreply.github.com"
       git config user.name "${{ inputs.actor }}"
       git pull ${REMOTE}
-      git add .
+      git add ${{ inputs.docs_path }}
       git status
       git commit -am "Update _sidebar"
       git push ${REMOTE}  ${{ inputs.branch }}
