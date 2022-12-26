@@ -185,3 +185,4 @@ def write_list2txt(wlist, file_path):
         for line in wlist:
             fn.write(str(line) + '\n')
 write_list2txt(hist_list, 'docs/hist.md')
+print('- [Wiki History](/hist)')
