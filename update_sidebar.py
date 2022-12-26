@@ -82,8 +82,10 @@ def build_rules(file_path):
         flines = fn.readlines()
         for line in flines:
             temp = line.strip('\n')
+            if line.strip('\n').strip(' ') == '':
+                break
             if temp.startswith(' '):
-                ltitle = temp.replace(' ', '').replace('-', '')
+                ltitle = temp.replace(' ', '').replace('-', '').strip(' ')
                 spc = temp.count('  ')
                 if lastspc < spc:
                     lstk.append(ltitle)
@@ -95,7 +97,7 @@ def build_rules(file_path):
                     lstk.append(ltitle)
                 lastspc = spc
             if temp.startswith('- '):
-                ltitle = temp.replace('- ', '')
+                ltitle = temp.replace('- ', '').strip(' ')
                 lstk = [ltitle]
                 lastspc = 0
             listpath.append('/'.join(lstk))
