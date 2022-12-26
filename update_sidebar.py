@@ -101,7 +101,8 @@ def build_rules(file_path):
             listpath.append('/'.join(lstk))
     return listpath
 
-spath = 'sidebar.md'
+spath = os.path.join(args.path, 'sidebar.md')
+
 rulespath = build_rules(spath)
 flist = search_docs(args.path)
 fdf = build_df(flist)
