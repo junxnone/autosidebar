@@ -3,7 +3,7 @@ import glob
 import pandas as pd
 import argparse
 import fileinput
-
+import time
 
 ap = argparse.ArgumentParser()
 ap.add_argument('-p', '--path', default='none')
@@ -186,3 +186,5 @@ def write_list2txt(wlist, file_path):
             fn.write(str(line) + '\n')
 write_list2txt(hist_list, 'docs/hist.md')
 print('- [Wiki History](/hist)')
+udtime = time.strftime("%Y.%m.%d", time.localtime())
+print('<kbd>Junxnone<sub>@' + udtime + '</sub></kbd>')
