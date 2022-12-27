@@ -186,5 +186,7 @@ def write_list2txt(wlist, file_path):
             fn.write(str(line) + '\n')
 write_list2txt(hist_list, 'docs/hist.md')
 print('- [Wiki History](/hist)')
+
+print('\n---')
 udtime = time.strftime("%Y.%m.%d", time.localtime())
-print('<kbd>Junxnone<sub>@' + udtime + '</sub></kbd>')
+print('<kbd>' + udtime + '<sub>Junx</sub></kbd>')
