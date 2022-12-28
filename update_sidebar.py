@@ -188,5 +188,8 @@ write_list2txt(hist_list, 'docs/hist.md')
 print('- [Wiki History](/hist)')
 
 print('\n---')
-udtime = time.strftime("%Y.%m.%d", time.localtime())
-print('<kbd>' + udtime + '<sub>Junx</sub></kbd>')
+uddate = time.strftime("%Y.%m.%d", time.localtime())
+udtime = time.strftime("%H", time.localtime())
+
+print('<kbd>' + uddate + '<sub>Junx' + udtime + '</sub></kbd>')
+
