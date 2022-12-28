@@ -3,7 +3,8 @@ import glob
 import pandas as pd
 import argparse
 import fileinput
-import time
+import pytz
+import datetime
 
 ap = argparse.ArgumentParser()
 ap.add_argument('-p', '--path', default='none')
@@ -188,8 +189,10 @@ write_list2txt(hist_list, 'docs/hist.md')
 print('- [Wiki History](/hist)')
 
 print('\n---')
-uddate = time.strftime("%Y.%m.%d", time.localtime())
-udtime = time.strftime("%H", time.localtime())
+tz = pytz.timezone('Asia/Shanghai')
+
+uddate = datetime.datetime.now(tz).strftime("%Y.%m.%d")
+udtime = datetime.datetime.now(tz).strftime("%H")
 
 print('<kbd>' + uddate + '<sub>Junx' + udtime + '</sub></kbd>')
 
