@@ -81,27 +81,18 @@ def build_rules(file_path):
     lastspc = 0
     with open(file_path, 'r') as fn:
         flines = fn.readlines()
+        patha = [0,1,2,3,4,5,6,7,8,9]
         for line in flines:
             temp = line.strip('\n')
             if line.strip('\n').strip(' ') == '':
                 break
             if temp.startswith(' '):
                 ltitle = temp.replace(' ', '').replace('-', '').strip(' ')
-                spc = temp.count('  ')
-                if lastspc < spc:
-                    lstk.append(ltitle)
-                elif lastspc == spc:
-                    lstk.pop()
-                    lstk.append(ltitle)
-                else:
-                    lstk=lstk[:-2]
-                    lstk.append(ltitle)
-                lastspc = spc
-            if temp.startswith('- '):
-                ltitle = temp.replace('- ', '').strip(' ')
-                lstk = [ltitle]
-                lastspc = 0
-            listpath.append('/'.join(lstk))
+            spc = temp.count('  ')
+            print(spc)
+            patha[spc] = ltitle
+
+            listpath.append('/'.join(patha[0:spc+1]))
     return listpath
 
 spath = os.path.join(args.path, 'sidebar.md')
