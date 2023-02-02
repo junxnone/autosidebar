@@ -88,7 +88,6 @@ def build_rules(file_path):
                 break
             ltitle = temp.replace(' ', '').replace('-', '').strip(' ')
             spc = temp.count('  ')
-            print(spc)
             patha[spc] = ltitle
 
             listpath.append('/'.join(patha[0:spc+1]))
