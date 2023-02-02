@@ -86,8 +86,7 @@ def build_rules(file_path):
             temp = line.strip('\n')
             if line.strip('\n').strip(' ') == '':
                 break
-            if temp.startswith(' '):
-                ltitle = temp.replace(' ', '').replace('-', '').strip(' ')
+            ltitle = temp.replace(' ', '').replace('-', '').strip(' ')
             spc = temp.count('  ')
             print(spc)
             patha[spc] = ltitle
