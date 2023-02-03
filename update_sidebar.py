@@ -87,7 +87,7 @@ def build_rules(file_path):
             if line.strip('\n').strip(' ') == '':
                 break
             ltitle = temp.replace(' ', '').replace('-', '').strip(' ')
-            spc = temp.count('  ')
+            spc = temp.rstrip(' ').count('  ')
             patha[spc] = ltitle
 
             listpath.append('/'.join(patha[0:spc+1]))
