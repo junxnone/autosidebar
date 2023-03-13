@@ -58,7 +58,7 @@ def build_df(files_list):
 
     basename = files_df.filename.str.split(".", expand=True)[0].rename("basename")
     files_df = files_df.join(basename)
-    xpath = files_df.basename.str.replace("[0-9][0-9][0-9][0-9]_", '', regex=True).str.replace('_','/').rename("xpath")
+    xpath = files_df.basename.str.replace("^[0-9][0-9][0-9][0-9]_", '', regex=True).str.replace('_','/').rename("xpath")
     files_df = files_df.join(xpath)
 
 
@@ -68,7 +68,7 @@ def build_df(files_list):
     files_df['lastname'] = sname['lastname']
     files_df['title'] = files_df.apply(lambda x: get_title(x['filepath'], x['lastname']), axis = 1)
     files_df['create_date'] = files_df.apply(lambda x: get_create_date(x['filepath']), axis = 1)
-    cls_df = files_df.filename.str.replace("[0-9][0-9][0-9][0-9]_", '', regex=True).str.replace('.', '_', regex=False).str.split("_", expand=True, regex=False)
+    cls_df = files_df.filename.str.replace("^[0-9][0-9][0-9][0-9]_", '', regex=True).str.replace('.', '_', regex=False).str.split("_", expand=True, regex=False)
     files_df = files_df.join(cls_df)
     files_df.fillna(value="None", inplace=True)
     files_df['link'] = '[' + files_df.title + '](/' + files_df.basename + ')'
@@ -174,7 +174,7 @@ def write_list2txt(wlist, file_path):
     with open(file_path, 'w') as fn:
         for line in wlist:
             fn.write(str(line) + '\n')
-write_list2txt(hist_list, 'docs/hist.md')
+write_list2txt(hist_list, os.path.join(args.path,'hist.md'))
 print('- [Wiki History](/hist)')
 
 print('\n---')
@@ -184,4 +184,3 @@ uddate = datetime.datetime.now(tz).strftime("%Y.%m.%d")
 udtime = datetime.datetime.now(tz).strftime("%H")
 
 print('<kbd>' + uddate + '<sub>Junx' + udtime + '</sub></kbd>')
-
