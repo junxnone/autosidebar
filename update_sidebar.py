@@ -183,4 +183,4 @@ tz = pytz.timezone('Asia/Shanghai')
 uddate = datetime.datetime.now(tz).strftime("%m%d")
 udtime = datetime.datetime.now(tz).strftime("%H%M%S")
 
-print('<kbd>' + '<sub>@' + udtime + update + '</sub></kbd>')
+print('<kbd>' + '<sub>@' + udtime + uddate + '</sub></kbd>')
