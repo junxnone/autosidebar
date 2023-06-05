@@ -180,7 +180,7 @@ print('- [Wiki History](/hist)')
 print('\n---')
 tz = pytz.timezone('Asia/Shanghai')
 
-uddate = datetime.datetime.now(tz).strftime("%Y.%m.%d")
-udtime = datetime.datetime.now(tz).strftime("%H")
+uddate = datetime.datetime.now(tz).strftime("%m%d")
+udtime = datetime.datetime.now(tz).strftime("%H%M%S")
 
-print('<kbd>' + uddate + '<sub>Junx' + udtime + '</sub></kbd>')
+print('<kbd>' + '<sub>@' + udtime + update + '</sub></kbd>')
