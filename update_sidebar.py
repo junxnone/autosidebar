@@ -221,7 +221,7 @@ def dump_kg_json(df, reponame):
                                 link = {"source": snode, "target": tnode, "value": i}
                                 kg["links"].append(link)
 
-    with open("kg.json", 'w') as f:
+    with open(os.path.join(args.path,'kg.json'), 'w') as f:
         json.dump(kg, f)
 
 dump_kg_json(fdf, args.repo_name)
