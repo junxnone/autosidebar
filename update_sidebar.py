@@ -5,9 +5,12 @@ import argparse
 import fileinput
 import pytz
 import datetime
+import json
 
 ap = argparse.ArgumentParser()
 ap.add_argument('-p', '--path', default='none')
+ap.add_argument('-r', '--repo_name', default='Root')
+
 args = ap.parse_args()
 
 
@@ -184,3 +187,41 @@ uddate = datetime.datetime.now(tz).strftime("%m%d")
 udtime = datetime.datetime.now(tz).strftime("%H%M%S")
 
 print('<kbd>' + '<sub>@' + udtime + uddate + '</sub></kbd>')
+
+def dump_kg_json(df, reponame):
+    kg = {"nodes":[],"links":[]}
+    url='https://junxnone.github.io/' + reponame.split('/')[1] + '/#/'
+    rootnode = {"id": reponame.split('/')[1],"group":0,"url":url}
+    kg["nodes"].append(rootnode)
+    nodelist = {}
+    nodelist["0"] = []
+    nodelist["0"].append(rootnode["id"])
+
+    for i in range(1,3):
+        nodelist[str(i)]=[]
+        if i in df.columns:
+            subdf = df[df[i]=='md']
+            for index,row in subdf.iterrows():
+                st = ' '
+                nodeid = st.join(row['basename'].split('_')[1:])
+                nodelist[str(i)].append(nodeid)
+                nodeurl = url+row['link'].split('/')[1].split(')')[0]
+                node = {"id": nodeid,"group":i,"url":nodeurl}
+                kg["nodes"].append(node)
+            if(i-1 == 0):
+                node = {"id": nodeid,"group":i,"url":nodeurl}
+                for tnode in nodelist[str(i)]:
+                    link = {"source": nodelist["0"][0], "target": tnode, "value": i}
+                    kg["links"].append(link)
+            else:
+                if(str(i-1) in nodelist):
+                    for snode in nodelist[str(i-1)]:
+                        for tnode in nodelist[str(i)]:
+                            if snode in tnode:
+                                link = {"source": snode, "target": tnode, "value": i}
+                                kg["links"].append(link)
+
+    with open(os.path.join(args.path,'kg.json'), 'w') as f:
+        json.dump(kg, f)
+
+dump_kg_json(fdf, args.repo_name)
