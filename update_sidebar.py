@@ -197,7 +197,7 @@ def dump_kg_json(df, reponame):
     nodelist["0"] = []
     nodelist["0"].append(rootnode["id"])
 
-    for i in range(1,3):
+    for i in range(1,10):
         nodelist[str(i)]=[]
         if i in df.columns:
             subdf = df[df[i]=='md']
