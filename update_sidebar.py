@@ -10,6 +10,7 @@ import json
 ap = argparse.ArgumentParser()
 ap.add_argument('-p', '--path', default='none')
 ap.add_argument('-r', '--repo_name', default='Root')
+ap.add_argument('-rn', '--rname', default='Root Name')
 
 args = ap.parse_args()
 
@@ -188,10 +189,10 @@ udtime = datetime.datetime.now(tz).strftime("%H%M%S")
 
 print('<kbd>' + '<sub>@' + udtime + uddate + '</sub></kbd>')
 
-def dump_kg_json(df, reponame):
+def dump_kg_json(df, reponame, rname):
     kg = {"nodes":[],"links":[]}
-    url='https://junxnone.github.io/' + reponame.split('/')[1] + '/#/'
-    rootnode = {"id": reponame.split('/')[1],"group":0,"url":url}
+    url='https://junxnone.github.io/' + reponame + '/#/'
+    rootnode = {"id": reponame,"group":0, "title": rname,"url":url}
     kg["nodes"].append(rootnode)
     nodelist = {}
     nodelist["0"] = []
@@ -204,11 +205,10 @@ def dump_kg_json(df, reponame):
             for index,row in subdf.iterrows():
                 st = ' '
                 nodeid = st.join(row['basename'].split('_')[1:])
-                if row['title'] not in nodeid:
-                    nodeid = nodeid + " " + row['title']
+                nodeid = reponame + " " + nodeid
                 nodelist[str(i)].append(nodeid)
                 nodeurl = url+row['link'].split('/')[1].split(')')[0]
-                node = {"id": nodeid,"group":i,"url":nodeurl}
+                node = {"id": nodeid,"group":i, "title": row['title'], "url":nodeurl}
                 kg["nodes"].append(node)
             if(i-1 == 0):
                 node = {"id": nodeid,"group":i,"url":nodeurl}
@@ -226,4 +226,4 @@ def dump_kg_json(df, reponame):
     with open(os.path.join(args.path,'kg.json'), 'w') as f:
         json.dump(kg, f)
 
-dump_kg_json(fdf, args.repo_name)
+dump_kg_json(fdf, args.repo_name.split('/')[1], args.rname)
