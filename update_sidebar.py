@@ -226,4 +226,5 @@ def dump_kg_json(df, reponame, rname):
     with open(os.path.join(args.path,'kg.json'), 'w') as f:
         json.dump(kg, f)
 
+print(args.repo_name)
 dump_kg_json(fdf, args.repo_name.split('/')[1], args.rname)
