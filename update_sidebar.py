@@ -204,6 +204,8 @@ def dump_kg_json(df, reponame):
             for index,row in subdf.iterrows():
                 st = ' '
                 nodeid = st.join(row['basename'].split('_')[1:])
+                if row['title'] not in nodeid:
+                    nodeid = nodeid + " " + row['title']
                 nodelist[str(i)].append(nodeid)
                 nodeurl = url+row['link'].split('/')[1].split(')')[0]
                 node = {"id": nodeid,"group":i,"url":nodeurl}
