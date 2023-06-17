@@ -11,6 +11,10 @@ inputs:
     description: "markdown documents path"
     required: true
     default: "docs"
+  root_node:
+    description: "root node for kg"
+    required: true
+    default: "root"
   push_branch:
     description: "Target branch name to push the index"
     required: true
@@ -31,7 +35,7 @@ runs:
     shell: bash
     run: |
       wget https://raw.githubusercontent.com/junxnone/autosidebar/main/update_sidebar.py
-      python update_sidebar.py --path "${{ inputs.docs_path }}" --repo_name "${{ github.repository }}"| tee "${{ inputs.docs_path }}"/_sidebar.md
+      python update_sidebar.py --path "${{ inputs.docs_path }}" --repo_name "${{ github.repository }}" --repo_name "${{ inputs.root_node }}" | tee "${{ inputs.docs_path }}"/_sidebar.md
   - name: push to gh-page
     shell: bash
     run: |
