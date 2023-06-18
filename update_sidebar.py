@@ -192,7 +192,7 @@ print('<kbd>' + '<sub>@' + udtime + uddate + '</sub></kbd>')
 def dump_kg_json(df, reponame, rname):
     kg = {"nodes":[],"links":[]}
     url='https://junxnone.github.io/' + reponame + '/#/'
-    rootnode = {"id": reponame,"group":0, "title": rname,"url":url}
+    rootnode = {"id": reponame,"group":0, "title": rname,"url":url, "collapsed": False, "childLinks": []}
     kg["nodes"].append(rootnode)
     nodelist = {}
     nodelist["0"] = []
@@ -208,7 +208,7 @@ def dump_kg_json(df, reponame, rname):
                 nodeid = reponame + " " + nodeid
                 nodelist[str(i)].append(nodeid)
                 nodeurl = url+row['link'].split('/')[1].split(')')[0]
-                node = {"id": nodeid,"group":i, "title": row['title'], "url":nodeurl}
+                node = {"id": nodeid,"group":i, "title": row['title'], "url":nodeurl, "collapsed": False, "childLinks": []}
                 kg["nodes"].append(node)
             if(i-1 == 0):
                 node = {"id": nodeid,"group":i,"url":nodeurl}
