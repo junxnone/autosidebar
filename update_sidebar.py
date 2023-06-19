@@ -192,7 +192,7 @@ print('<kbd>' + '<sub>@' + udtime + uddate + '</sub></kbd>')
 def dump_kg_json(df, reponame, rname):
     kg = {"nodes":[],"links":[]}
     url='https://junxnone.github.io/' + reponame + '/#/'
-    rootnode = {"id": reponame,"group":0, "title": rname,"url":url, "collapsed": False, "childLinks": []}
+    rootnode = {"id": reponame,"group":0, "title": rname,"url":url, "visible": True, "childLinks": []}
     kg["nodes"].append(rootnode)
     nodelist = {}
     nodelist["0"] = []
@@ -208,19 +208,19 @@ def dump_kg_json(df, reponame, rname):
                 nodeid = reponame + " " + nodeid
                 nodelist[str(i)].append(nodeid)
                 nodeurl = url+row['link'].split('/')[1].split(')')[0]
-                node = {"id": nodeid,"group":i, "title": row['title'], "url":nodeurl, "collapsed": False, "childLinks": []}
+                node = {"id": nodeid,"group":i, "title": row['title'], "url":nodeurl, "visible": True, "childLinks": []}
                 kg["nodes"].append(node)
             if(i-1 == 0):
                 node = {"id": nodeid,"group":i,"url":nodeurl}
                 for tnode in nodelist[str(i)]:
-                    link = {"source": nodelist["0"][0], "target": tnode, "value": i}
+                    link = {"source": nodelist["0"][0], "target": tnode, "value": i, "visible": True}
                     kg["links"].append(link)
             else:
                 if(str(i-1) in nodelist):
                     for snode in nodelist[str(i-1)]:
                         for tnode in nodelist[str(i)]:
                             if snode in tnode:
-                                link = {"source": snode, "target": tnode, "value": i}
+                                link = {"source": snode, "target": tnode, "value": i, "visible": True}
                                 kg["links"].append(link)
 
     with open(os.path.join(args.path,'kg.json'), 'w') as f:
