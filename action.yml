@@ -22,15 +22,22 @@ inputs:
 runs:
   using: "composite"
   steps:
+  - uses: actions/checkout@v3
   - name: Set up Python
     uses: actions/setup-python@v4
     with:
       python-version: '3.x'
-  - name: Set up Python package
-    shell: bash
+  - name: Install dependencies
     run: |
-      wget https://raw.githubusercontent.com/junxnone/autosidebar/main/requirements.txt
-      pip install -r requirements.txt
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt  
+  - name: Cache dependencies
+    uses: actions/cache@v2
+    with:
+      path: ~/.cache/pip
+      key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+      restore-keys: |
+        ${{ runner.os }}-pip-
   - name: update sidebar
     shell: bash
     run: |
