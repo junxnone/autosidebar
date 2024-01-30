@@ -27,11 +27,9 @@ runs:
     with:
       python-version: '3.x'
       cache: 'pip'
-  - name: Set up Python package
+  - name: Install Dependencies
     shell: bash
-    run: |
-      wget https://raw.githubusercontent.com/junxnone/autosidebar/main/requirements.txt
-      pip install -r requirements.txt
+    run: pip install -r pandas
   - name: update sidebar
     shell: bash
     run: |
