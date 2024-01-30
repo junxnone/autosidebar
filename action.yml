@@ -24,11 +24,13 @@ runs:
   steps:
   - name: testpre
     shell: bash
+    run: |
       pwd
       ls -alh
   - uses: actions/checkout@v3
   - name: testpost
     shell: bash
+    run: |
       pwd
       ls -alh
   - name: Set up Python
