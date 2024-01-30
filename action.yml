@@ -28,7 +28,7 @@ runs:
       python-version: '3.x'
   - name: Install Dependencies
     shell: bash
-    run: pip install -r pandas
+    run: pip install pandas
   - name: update sidebar
     shell: bash
     run: |
