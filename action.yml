@@ -25,6 +25,7 @@ runs:
   - uses: actions/checkout@v4
     with:
       repository: 'junxnone/autosidebar'
+      path: 'script'
   - name: Set up Python
     uses: actions/setup-python@v4
     with:
@@ -33,6 +34,7 @@ runs:
   - name: Install dependencies
     shell: bash
     run: |
+      pwd
       ls -alh 
       python -m pip install --upgrade pip
       pip install -r requirements.txt
@@ -40,6 +42,7 @@ runs:
   - name: Install dependencies
     shell: bash
     run: |
+      pwd
       ls -alh 
       ls -alh ..
   - name: update sidebar
