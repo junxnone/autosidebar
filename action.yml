@@ -35,9 +35,10 @@ runs:
     shell: bash
     run: |
       pwd
-      ls -alh 
+      ls -alh
+      ls -alh script
       python -m pip install --upgrade pip
-      pip install -r requirements.txt
+      pip install -r script/requirements.txt
   - uses: actions/checkout@v4
   - name: Install dependencies
     shell: bash
