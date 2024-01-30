@@ -48,7 +48,8 @@ runs:
   - name: update sidebar
     shell: bash
     run: |
-      python script/update_sidebar.py --path "target/${{ inputs.docs_path }}" --repo_name "${{ github.repository }}" --rname "${{ inputs.root_node }}" | tee "${{ inputs.docs_path }}"/_sidebar.md
+      cd target
+      python ../script/update_sidebar.py --path "${{ inputs.docs_path }}" --repo_name "${{ github.repository }}" --rname "${{ inputs.root_node }}" | tee "${{ inputs.docs_path }}"/_sidebar.md
   - name: push to gh-page
     shell: bash
     run: |
