@@ -26,13 +26,13 @@ runs:
     shell: bash
     run: |
       pwd
-      ls -alh
+      ls -alh ..
   - uses: actions/checkout@v3
   - name: testpost
     shell: bash
     run: |
       pwd
-      ls -alh
+      ls -alh ..
   - name: Set up Python
     uses: actions/setup-python@v4
     with:
