@@ -22,7 +22,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - run: |
+  - name: test
+    shell: bash
+    run: |
       pwd
       ls -alh
   - name: Set up Python
