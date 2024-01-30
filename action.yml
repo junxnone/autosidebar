@@ -23,8 +23,8 @@ runs:
   using: "composite"
   steps:
   - run: |
-    pwd
-    ls -alh
+      pwd
+      ls -alh
   - name: Set up Python
     uses: actions/setup-python@v4
     with:
