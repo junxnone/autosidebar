@@ -36,6 +36,7 @@ runs:
       ls -alh 
       python -m pip install --upgrade pip
       pip install -r requirements.txt
+  - uses: actions/checkout@v4
   - name: update sidebar
     shell: bash
     run: |
