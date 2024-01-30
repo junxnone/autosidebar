@@ -22,6 +22,9 @@ inputs:
 runs:
   using: "composite"
   steps:
+  - uses: actions/checkout@v4
+    with:
+      repository: 'junxnone/autosidebar'
   - name: Set up Python
     uses: actions/setup-python@v4
     with:
@@ -30,8 +33,8 @@ runs:
   - name: Install dependencies
     shell: bash
     run: |
+      ls -alh 
       python -m pip install --upgrade pip
-      wget https://raw.githubusercontent.com/junxnone/autosidebar/dev/requirements.txt
       pip install -r requirements.txt
   - name: update sidebar
     shell: bash
