@@ -25,7 +25,7 @@ runs:
   - uses: actions/checkout@v4
     with:
       repository: 'junxnone/autosidebar'
-      path: 'script'
+      path: '../script'
   - name: Set up Python
     uses: actions/setup-python@v4
     with:
@@ -36,9 +36,9 @@ runs:
     run: |
       pwd
       ls -alh
-      ls -alh script
+      ls -alh ../script
       python -m pip install --upgrade pip
-      pip install -r script/requirements.txt
+      pip install -r ../script/requirements.txt
   - uses: actions/checkout@v4
   - name: Install dependencies
     shell: bash
