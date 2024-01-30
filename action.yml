@@ -39,12 +39,6 @@ runs:
   - uses: actions/checkout@v4
     with:
       path: 'target'
-  - name: Install dependencies
-    shell: bash
-    run: |
-      pwd
-      ls -alh 
-      ls -alh target
   - name: update sidebar
     shell: bash
     run: |
