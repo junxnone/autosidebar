@@ -22,21 +22,32 @@ inputs:
 runs:
   using: "composite"
   steps:
+  - uses: actions/checkout@v4
+    with:
+      repository: 'junxnone/autosidebar'
+      path: 'script'
   - name: Set up Python
-    uses: actions/setup-python@v4
+    uses: actions/setup-python@v5
     with:
       python-version: '3.x'
-  - name: Install Dependencies
+      cache: 'pip'
+  - name: Install dependencies
     shell: bash
-    run: pip install pandas
+    run: |
+      python -m pip install --upgrade pip
+      pip install -r script/requirements.txt
+  - uses: actions/checkout@v4
+    with:
+      path: 'target'
   - name: update sidebar
     shell: bash
     run: |
-      wget https://raw.githubusercontent.com/junxnone/autosidebar/main/update_sidebar.py
-      python update_sidebar.py --path "${{ inputs.docs_path }}" --repo_name "${{ github.repository }}" --rname "${{ inputs.root_node }}" | tee "${{ inputs.docs_path }}"/_sidebar.md
+      cd target
+      python ../script/update_sidebar.py --path "${{ inputs.docs_path }}" --repo_name "${{ github.repository }}" --rname "${{ inputs.root_node }}" | tee "${{ inputs.docs_path }}"/_sidebar.md
   - name: push to gh-page
     shell: bash
     run: |
+      cd target
       REMOTE=https://${{ inputs.GITHUB_TOKEN }}@github.com/${{ github.repository }}
       git config user.email "${{ inputs.actor }}@users.noreply.github.com"
       git config user.name "${{ inputs.actor }}"
