@@ -22,6 +22,15 @@ inputs:
 runs:
   using: "composite"
   steps:
+  - name: testpre
+    shell: bash
+      pwd
+      ls -alh
+  - uses: actions/checkout@v3
+  - name: testpost
+    shell: bash
+      pwd
+      ls -alh
   - name: Set up Python
     uses: actions/setup-python@v4
     with:
