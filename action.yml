@@ -38,7 +38,7 @@ runs:
       pip install -r script/requirements.txt
   - uses: actions/checkout@v4
     with:
-    path: 'target'
+      path: 'target'
   - name: Install dependencies
     shell: bash
     run: |
