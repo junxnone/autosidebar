@@ -30,6 +30,7 @@ runs:
     with:
       repository: 'junxnone/autosidebar'
       path: 'script'
+      ref: job2lastcommit
   - name: Set up Python
     uses: actions/setup-python@v5
     with:
