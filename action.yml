@@ -60,4 +60,4 @@ runs:
       git add ${{ inputs.docs_path }}
       git status
       git commit -am "Update _sidebar"
-      git push ${REMOTE}  HEAD:${{ inputs.branch }}
+      git push ${REMOTE}  "HEAD:${{ inputs.branch }}"
