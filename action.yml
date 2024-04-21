@@ -19,6 +19,10 @@ inputs:
     description: "Target branch name to push the index"
     required: true
     default: "gh-page"
+  ref:
+    description: "checkout-commit"
+    required: true
+    default: "main"
 runs:
   using: "composite"
   steps:
@@ -39,6 +43,7 @@ runs:
   - uses: actions/checkout@v4
     with:
       path: 'target'
+      ref: ${{ inputs.ref }}
   - name: update sidebar
     shell: bash
     run: |
@@ -55,4 +60,4 @@ runs:
       git add ${{ inputs.docs_path }}
       git status
       git commit -am "Update _sidebar"
-      git push ${REMOTE}  ${{ inputs.branch }}
+      git push ${REMOTE}  "HEAD:${{ inputs.push_branch }}"
