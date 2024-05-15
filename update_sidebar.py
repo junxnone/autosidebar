@@ -164,7 +164,8 @@ sort_df(fdf, 0, seq_df)
 
 
 datedf = fdf.sort_values('create_date', ascending=False)
-datedf['flink'] = '[' + fdf.xpath.str.replace('/', ' ') + '](/' + fdf.basename + ')'
+labels = fdf.xpath.str.replace('/', ' #')
+datedf['flink'] = ' [' + fdf.title + '](/' + fdf.basename + ')' + ' '*4 + '#' + labels
 
 date_linkl = datedf.flink.tolist()
 date_datel = datedf.create_date.tolist()
