@@ -165,7 +165,7 @@ sort_df(fdf, 0, seq_df)
 
 datedf = fdf.sort_values('create_date', ascending=False)
 labels = fdf.xpath.str.replace('/', ' :bookmark:')
-datedf['flink'] = ' [' + fdf.title + '](/' + fdf.basename + ')' + '&nbsp;'*4 + ':bookmark:' + labels
+datedf['flink'] = ' [' + fdf.title + '](/' + fdf.basename + ')' + '&nbsp;'*2 + ' :bookmark:' + labels
 
 date_linkl = datedf.flink.tolist()
 date_datel = datedf.create_date.tolist()
@@ -173,7 +173,7 @@ date_datel = datedf.create_date.tolist()
 hist_list = ['# Wiki History\n']
 for ilink, idate in zip(date_linkl, date_datel):
     if idate != 'nodate':
-        hist_list.append(f'- {idate}' + '&nbsp;'*8 +  ilink)
+        hist_list.append(f'- {idate}' + '&nbsp;'*2 +  ilink)
 
 def write_list2txt(wlist, file_path):
     with open(file_path, 'w') as fn:
