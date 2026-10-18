@@ -44,20 +44,28 @@ runs:
     with:
       path: 'target'
       ref: ${{ inputs.ref }}
-  - name: update sidebar
-    shell: bash
-    run: |
-      cd target
-      python ../script/update_sidebar.py --path "${{ inputs.docs_path }}" --repo_name "${{ github.repository }}" --rname "${{ inputs.root_node }}" | tee "${{ inputs.docs_path }}"/_sidebar.md
-  - name: push to gh-page
+  - name: update sidebar and push
     shell: bash
     run: |
       cd target
       REMOTE=https://${{ inputs.GITHUB_TOKEN }}@github.com/${{ github.repository }}
       git config user.email "${{ inputs.actor }}@users.noreply.github.com"
       git config user.name "${{ inputs.actor }}"
-      git pull ${REMOTE}
-      git add ${{ inputs.docs_path }}
-      git status
-      git commit -am "Update _sidebar"
-      git push ${REMOTE}  "HEAD:${{ inputs.push_branch }}"
+      for i in 1 2 3 4 5; do
+        python ../script/update_sidebar.py --path "${{ inputs.docs_path }}" --repo_name "${{ github.repository }}" --rname "${{ inputs.root_node }}" | tee "${{ inputs.docs_path }}"/_sidebar.md
+        git add "${{ inputs.docs_path }}"
+        git status
+        if ! git commit -m "Update _sidebar"; then
+          echo "nothing to commit"
+          exit 0
+        fi
+        if git push "$REMOTE" "HEAD:${{ inputs.push_branch }}"; then
+          exit 0
+        fi
+        echo "push rejected (attempt $i), fetching latest ${{ inputs.push_branch }} and retrying..."
+        git fetch "$REMOTE" "${{ inputs.push_branch }}"
+        git checkout -B "${{ inputs.push_branch }}" FETCH_HEAD
+        sleep $((i * 3))
+      done
+      echo "::error::push to ${{ inputs.push_branch }} failed after retries"
+      exit 1
